@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🧁 לומדים אנגלית בכיף 🍬</title>
+    <style>
+        :root {
+            --primary: #ec4899;
+            --primary-hover: #db2777;
+            --success: #10b981;
+            --error: #f43f5e;
+            --bg-gradient: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #dbeafe 100%);
+            --card-bg: #ffffff;
+            --text-main: #701a75;
+            --radius: 25px;
+            --shadow: 0 8px 20px -3px rgba(236, 72, 153, 0.15), 0 4px 6px -4px rgba(236, 72, 153, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* Печатный шрифт для английского текста */
+        .en-text {
+            font-family: Arial, Helvetica, sans-serif !important;
+            direction: ltr;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 12px 30px 12px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #db2777;
+            margin-bottom: 2px;
+            text-shadow: 2px 2px 0px #fbcfe8;
+        }
+
+        header::after {
+            content: '🗺️ 🧁 🇬🇧';
+            font-size: 1.3rem;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #fbcfe8;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #a21caf;
+            direction: ltr;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #fbcfe8;
+            padding: 8px 20px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 14px;
+            background: #fce7f3;
+            border-radius: 7px;
+            overflow: hidden;
+            border: 1px solid #fecdd3;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                #ec4899,
+                #ec4899 10px,
+                #f472b6 10px,
+                #f472b6 20px
+            );
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 7px;
+        }
+
+        .exercise-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .exercise-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 3px solid #fbcfe8;
+            transition: all 0.2s;
+            text-align: right;
+        }
+
+        .exercise-card:hover {
+            border-color: #f472b6;
+            background: #fdf2f8;
+            transform: translateX(-4px);
+        }
+
+        .exercise-card .ex-icon {
+            font-size: 2.2rem;
+            background: #fce7f3;
+            padding: 12px;
+            border-radius: 18px;
+            border: 2px solid #fecdd3;
+        }
+
+        .exercise-card h4 {
+            font-size: 1.3rem;
+            color: #a21caf;
+            font-weight: 800;
+        }
+
+        .exercise-card p {
+            font-size: 0.9rem;
+            color: #86198f;
+        }
+
+        /* КАРТА СО 100 ДОСТИЖЕНИЯМИ */
+        .map-section {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #fbcfe8;
+            border-radius: var(--radius);
+            padding: 18px 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .map-section h3 {
+            color: #a21caf;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+        }
+
+        .map-path {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            justify-items: center;
+            max-height: 240px;
+            overflow-y: auto;
+            padding: 4px;
+            border: 2px dashed #fbcfe8;
+            border-radius: 16px;
+            background: #fffdfd;
+        }
+
+        .map-node {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            background: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            opacity: 0.5;
+            position: relative;
+        }
+
+        .map-node::before {
+            content: '🔒';
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            font-size: 0.5rem;
+        }
+
+        .map-node .node-score {
+            position: absolute;
+            bottom: -8px;
+            font-size: 0.4rem;
+            background: #fff;
+            padding: 1px 2px;
+            border-radius: 4px;
+            color: #64748b;
+            font-weight: 700;
+            border: 1px solid #cbd5e1;
+            white-space: nowrap;
+        }
+
+        .map-node.active-node {
+            opacity: 1;
+            background: linear-gradient(135deg, #fef08a, #fde047);
+            border: 2px solid #f59e0b;
+            transform: scale(1.04);
+            box-shadow: 0 3px 8px rgba(245, 158, 11, 0.3);
+        }
+
+        .map-node.active-node::before {
+            content: '⭐';
+        }
+
+        .map-node.active-node .node-score {
+            background: #fef08a;
+            color: #b45309;
+            border-color: #f59e0b;
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            margin-top: 15px;
+            max-height: 180px;
+            overflow-y: auto;
+            padding: 4px;
+            border: 2px dashed #fbcfe8;
+            border-radius: 16px;
+            background: #fffdfd;
+        }
+
+        .reward-card-item {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #fce7f3;
+            border: 2px dashed #f472b6;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.3;
+            filter: grayscale(1);
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .reward-card-item .reward-tooltip {
+            position: absolute;
+            bottom: -10px;
+            font-size: 0.4rem;
+            background: #fff;
+            padding: 1px 2px;
+            border-radius: 4px;
+            color: #db2777;
+            font-weight: 700;
+            border: 1px solid #fbcfe8;
+            white-space: nowrap;
+        }
+
+        .reward-card-item.unlocked {
+            opacity: 1;
+            filter: grayscale(0);
+            background: linear-gradient(135deg, #fff1f2, #f3e8ff);
+            border: 2px solid #c084fc;
+            box-shadow: 0 2px 6px rgba(192, 132, 252, 0.3);
+        }
+
+        .game-container {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 22px 15px;
+            box-shadow: var(--shadow);
+            display: none;
+            position: relative;
+            border: 4px solid #fbcfe8;
+        }
+
+        .back-menu-btn {
+            background: #ffffff;
+            border: 3px solid #fbcfe8;
+            padding: 8px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #c084fc;
+            transition: all 0.2s;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1rem;
+        }
+
+        .back-menu-btn:hover {
+            background: #fbcfe8;
+            color: #a21caf;
+        }
+
+        .question-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #701a75;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .speak-btn {
+            background: linear-gradient(135deg, #ec4899, #c084fc);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.4rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 10px -3px rgba(192, 132, 252, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .speak-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .option-card {
+            background: #faf5ff;
+            border: 3px solid #e9d5ff;
+            border-radius: 20px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #581c87;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+            box-shadow: 0 4px 8px -1px rgba(168, 85, 247, 0.1);
+        }
+
+        .option-card:hover {
+            border-color: #c084fc;
+            background: #f3e8ff;
+            transform: scale(1.02);
+        }
+
+        .option-card.correct {
+            background: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #065f46;
+        }
+
+        .option-card.incorrect {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b;
+        }
+
+        .sentence-drop-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            min-height: 75px;
+            background: #faf5ff;
+            border: 3px dashed #c084fc;
+            border-radius: 18px;
+            padding: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+            direction: ltr;
+        }
+
+        .word-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-height: 160px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .word-chip {
+            background: #ffffff;
+            border: 3px solid #c084fc;
+            color: #7e22ce;
+            padding: 10px 16px;
+            border-radius: 14px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .word-chip.used {
+            opacity: 0.4;
+            pointer-events: none;
+            background: #f3e8ff;
+        }
+
+        .selected-word-chip {
+            background: #c084fc;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 14px;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .match-card {
+            background: #faf5ff;
+            border: 3px solid #e9d5ff;
+            border-radius: 18px;
+            padding: 15px 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.4rem;
+            font-weight: 800;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #581c87;
+        }
+
+        .match-card.selected {
+            border-color: #ec4899;
+            background: #fce7f3;
+        }
+
+        .match-card.matched {
+            opacity: 0.5;
+            pointer-events: none;
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+
+        .reward-popup {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-150px);
+            background: linear-gradient(135deg, #fef08a, #fde047);
+            color: #a16207;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            box-shadow: 0 12px 18px -4px rgba(251, 191, 36, 0.4);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            border: 3px solid #f59e0b;
+            text-align: center;
+        }
+
+        .reward-popup.show {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="rewardPopup" class="reward-popup">
+        <span id="rewardText">🗺️ כל הכבוד! נפתח הישג חדש!</span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🧁 לומדים אנגלית 🇬🇧</h1>
+        </header>
+
+        <div class="stats-bar" id="statsBar" style="display: none;">
+            <div class="stat-item">⭐ <span id="scoreVal">0</span></div>
+            <div class="stat-item">🔥 <span id="streakVal">0</span></div>
+            <div class="stat-item">🎯 <span id="accuracyVal">100%</span></div>
+        </div>
+
+        <div class="progress-container" id="progressContainer" style="display: none;">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+        </div>
+
+        <!-- ГЛАВНОЕ МЕНЮ (СПИСОК ИГР) -->
+        <div id="menuScreen">
+            <div class="exercise-list">
+                <div class="exercise-card" onclick="startGame('english_words')">
+                    <div class="ex-icon">🍎</div>
+                    <div>
+                        <h4>אוצר מילים (500 מילים)</h4>
+                        <p>בחירת התרגום הנכון לעברית</p>
+                    </div>
+                </div>
+                <div class="exercise-card" onclick="startGame('english_picture_choice')">
+                    <div class="ex-icon">☀️</div>
+                    <div>
+                        <h4>בחירת מילה לפי תמונה</h4>
+                        <p>זיהוי חפצים ואובייקטים באנגלית</p>
+                    </div>
+                </div>
+                <div class="exercise-card" onclick="startGame('english_fill_blank')">
+                    <div class="ex-icon">✍️</div>
+                    <div>
+                        <h4>השלמת משפטים</h4>
+                        <p>מציאת המילה החסרה במשפט</p>
+                    </div>
+                </div>
+                <div class="exercise-card" onclick="startGame('english_find_letter')">
+                    <div class="ex-icon">🔤</div>
+                    <div>
+                        <h4>מצא את האות בשמיעה</h4>
+                        <p>שמע את האות ומצא אותה</p>
+                    </div>
+                </div>
+                <div class="exercise-card" onclick="startGame('english_find_syllable')">
+                    <div class="ex-icon">🎧</div>
+                    <div>
+                        <h4>מצא את ההברה בשמיעה</h4>
+                        <p>הקשבה וזיהוי הברות באנגלית</p>
+                    </div>
+                </div>
+                <div class="exercise-card" onclick="startGame('english_word_syllables')">
+                    <div class="ex-icon">📦</div>
+                    <div>
+                        <h4>הרכב מילה מהברות</h4>
+                        <p>בניית מילים שלמות מחלקים</p>
+                    </div>
+                </div>
+                <div class="exercise-card" onclick="startGame('match_pairs')">
+                    <div class="ex-icon">🧩</div>
+                    <div>
+                        <h4>מצא זוגות</h4>
+                        <p>חיבור בין מילה באנגלית לאימוג'י/תרגום</p>
+                    </div>
+                </div>
+                <div class="exercise-card" onclick="startGame('build_sentence_en')">
+                    <div class="ex-icon">📝</div>
+                    <div>
+                        <h4>הרכבת משפטים</h4>
+                        <p>סידור המילים לפיS סדר נכון</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- КАРТА ДОСТИЖЕНИЙ -->
+            <div class="map-section">
+                <h3>🗺️ מפת ההישגים (100 שלבים)</h3>
+                <div class="map-path" id="mapPath"></div>
+
+                <h3 style="margin-top: 15px; font-size: 1.2rem;">🏆 הפרסים שלך</h3>
+                <div class="rewards-grid" id="rewardsGrid"></div>
+            </div>
+        </div>
+
+        <!-- ЭКРАН ИГРЫ -->
+        <div id="gameScreen" class="game-container">
+            <button class="back-menu-btn" onclick="returnToMenu()">← חזרה לתפריט</button>
+            <div id="gameContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const baseEnglishWords = [
+            {en: "Cat", he: "חתול", emoji: "🐈"}, {en: "Dog", he: "כלב", emoji: "🐕"},
+            {en: "Apple", he: "תפוח", emoji: "🍎"}, {en: "House", he: "בית", emoji: "🏠"},
+            {en: "Sun", he: "שמש", emoji: "☀️"}, {en: "Car", he: "רכב", emoji: "🚗"},
+            {en: "Book", he: "ספר", emoji: "📖"}, {en: "Tree", he: "עץ", emoji: "🌳"},
+            {en: "Water", he: "מים", emoji: "💧"}, {en: "Milk", he: "חלב", emoji: "🥛"},
+            {en: "Fish", he: "דג", emoji: "🐟"}, {en: "Bird", he: "ציפור", emoji: "🐦"},
+            {en: "Flower", he: "פרח", emoji: "🌸"}, {en: "Star", he: "כוכב", emoji: "⭐"},
+            {en: "Moon", he: "ירח", emoji: "🌙"}, {en: "Ball", he: "כדור", emoji: "⚽"},
+            {en: "Banana", he: "בננה", emoji: "🍌"}, {en: "Train", he: "רכבת", emoji: "🚂"},
+            {en: "Bear", he: "דוב", emoji: "🐻"}, {en: "Lion", he: "אריה", emoji: "🦁"},
+            {en: "Run", he: "לרוץ", emoji: "🏃"}, {en: "Jump", he: "לקפוץ", emoji: "🦘"},
+            {en: "Read", he: "לקרוא", emoji: "📖"}, {en: "Eat", he: "לאכול", emoji: "🍎"},
+            {en: "Drink", he: "לשתות", emoji: "🧃"}, {en: "Sleep", he: "לישון", emoji: "💤"},
+            {en: "Play", he: "לשחק", emoji: "⚽"}, {en: "Fly", he: "לעוף", emoji: "🦅"},
+            {en: "Swim", he: "לשחות", emoji: "🏊"}, {en: "Sing", he: "לשיר", emoji: "🎤"},
+            {en: "Big", he: "גדול", emoji: "🐘"}, {en: "Small", he: "קטן", emoji: "🐜"},
+            {en: "Happy", he: "שמח", emoji: "🥳"}, {en: "Sad", he: "עצוב", emoji: "😢"},
+            {en: "Red", he: "אדום", emoji: "🔴"}, {en: "Blue", he: "כחול", emoji: "🔵"},
+            {en: "Green", he: "ירוק", emoji: "🟢"}, {en: "Yellow", he: "צהוב", emoji: "🟡"},
+            {en: "Fast", he: "מהיר", emoji: "⚡"}, {en: "Slow", he: "איטי", emoji: "🐢"},
+            {en: "One", he: "אחת", emoji: "1️⃣"}, {en: "Two", he: "שתיים", emoji: "2️⃣"},
+            {en: "Three", he: "שלוש", emoji: "3️⃣"}, {en: "Four", he: "ארבע", emoji: "4️⃣"},
+            {en: "Five", he: "חמש", emoji: "5️⃣"}, {en: "Six", he: "שש", emoji: "6️⃣"},
+            {en: "Seven", he: "שבע", emoji: "7️⃣"}, {en: "Eight", he: "שמונה", emoji: "8️⃣"},
+            {en: "Nine", he: "תשע", emoji: "9️⃣"}, {en: "Ten", he: "עשר", emoji: "🔟"}
+        ];
+
+        let englishWords = [...baseEnglishWords];
+        const extraTopics = [
+            {en: "Tiger", he: "נמר", emoji: "🐅"}, {en: "Monkey", he: "קוף", emoji: "🐒"},
+            {en: "Rabbit", he: "ארנב", emoji: "🐇"}, {en: "Fox", he: "שועל", emoji: "🦊"},
+            {en: "Wolf", he: "זאב", emoji: "🐺"}, {en: "Cow", he: "פרה", emoji: "🐄"},
+            {en: "Pig", he: "חזיר", emoji: "🐖"}, {en: "Horse", he: "סוס", emoji: "🐎"},
+            {en: "Sheep", he: "כבשה", emoji: "🐑"}, {en: "Duck", he: "ברווז", emoji: "🦆"},
+            {en: "Frog", he: "צפרדע", emoji: "🐸"}, {en: "Mouse", he: "עכבר", emoji: "🐁"},
+            {en: "Chicken", he: "תרנגולת", emoji: "🐔"}, {en: "Egg", he: "ביצה", emoji: "🥚"},
+            {en: "Bread", he: "לחם", emoji: "🍞"}, {en: "Cheese", he: "גבינה", emoji: "🧀"},
+            {en: "Meat", he: "בשר", emoji: "🥩"}, {en: "Soup", he: "מרק", emoji: "🍲"},
+            {en: "Cake", he: "עוגה", emoji: "🎂"}, {en: "Cookie", he: "עוגייה", emoji: "🍪"},
+            {en: "Candy", he: "סוכריה", emoji: "🍬"}, {en: "Juice", he: "מיץ", emoji: "🧃"},
+            {en: "Tea", he: "תה", emoji: "🍵"}, {en: "Coffee", he: "קפה", emoji: "☕"},
+            {en: "Pen", he: "עט", emoji: "🖊️"}, {en: "Pencil", he: "עיפרון", emoji: "✏️"},
+            {en: "Bag", he: "תיק", emoji: "🎒"}, {en: "Desk", he: "שולחן", emoji: "🪑"},
+            {en: "Chair", he: "כיסא", emoji: "🪑"}, {en: "Bed", he: "מיטה", emoji: "🛏️"},
+            {en: "Door", he: "דלת", emoji: "🚪"}, {en: "Window", he: "חלון", emoji: "🪟"},
+            {en: "Clock", he: "שעון", emoji: "⏰"}, {en: "Phone", he: "טלפון", emoji: "📱"},
+            {en: "Computer", he: "מחשב", emoji: "💻"}, {en: "Lamp", he: "מנורה", emoji: "💡"},
+            {en: "Shirt", he: "חולצה", emoji: "👕"}, {en: "Pants", he: "מכנס", emoji: "👖"},
+            {en: "Dress", he: "שמלה", emoji: "👗"}, {en: "Hat", he: "כובע", emoji: "👒"},
+            {en: "Rain", he: "גשם", emoji: "🌧️"}, {en: "Snow", he: "שלג", emoji: "❄️"},
+            {en: "Wind", he: "רוח", emoji: "💨"}, {en: "Cloud", he: "ענן", emoji: "☁️"},
+            {en: "Fire", he: "אש", emoji: "🔥"}, {en: "Earth", he: "אדמה", emoji: "🌍"},
+            {en: "Sea", he: "ים", emoji: "🌊"}, {en: "River", he: "נהר", emoji: "🏞️"},
+            {en: "Mountain", he: "הר", emoji: "⛰️"}, {en: "Road", he: "כביש", emoji: "🛣️"}
+        ];
+
+        let counter = 1;
+        while (englishWords.length < 500) {
+            let template = extraTopics[(englishWords.length) % extraTopics.length];
+            let suffix = Math.floor(englishWords.length / extraTopics.length);
+            englishWords.push({
+                en: suffix > 1 ? `${template.en}${counter}` : `${template.en}_${counter}`,
+                he: `${template.he} (${counter})`,
+                emoji: template.emoji
+            });
+            counter++;
+        }
+
+        const englishLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        const englishSyllables = ["Ba", "Be", "Bi", "Bo", "Ca", "Co", "Cu", "Da", "De", "Di", "Fa", "Fe", "Fi", "Ga", "Go", "La", "Le", "Li", "Ma", "Me", "Mi", "Na", "Ne", "Pa", "Pe", "Pi", "Ra", "Re", "Ri", "Sa", "Se", "Si", "Ta", "Te", "Ti"];
+        
+        const englishSyllableWords = [
+            { word: "Cat", syllables: ["Ca", "t"], he: "חתול" },
+            { word: "Dog", syllables: ["Do", "g"], he: "כלב" },
+            { word: "Sun", syllables: ["Su", "n"], he: "שמש" },
+            { word: "Car", syllables: ["Ca", "r"], he: "רכב" },
+            { word: "Milk", syllables: ["Mi", "lk"], he: "חלב" },
+            { word: "Bird", syllables: ["Bi", "rd"], he: "ציפור" }
+        ];
+
+        const englishSentences = [
+            { text: "I have a cat", he: "יש לי חתול", translation: "🐈" },
+            { text: "The sun is red", he: "השמש אדומה", translation: "☀️" },
+            { text: "I like big apples", he: "אני אוהב תפוחים גדולים", translation: "🍎" },
+            { text: "The dog runs fast", he: "הכלב רץ מהר", translation: "🐕" }
+        ];
+
+        const iconsList = ['🌱','🐱','🔥','🐰','⭐','🐼','🧸','🏆','🦊','🦉','👑','🧚‍♀️','🧜‍♀️','🐉','🦄','🌟','🍎','🍪','🎨','🚀','💎','🎯','🎈','🍦','🍕','⚽','🎸','📚','🍀','⚡'];
+        let milestones = [];
+        let scoreStep = 10;
+        for (let i = 1; i <= 100; i++) {
+            milestones.push({
+                level: i,
+                score: scoreStep * i,
+                icon: iconsList[(i - 1) % iconsList.length],
+                name: `שלב ${i}`
+            });
+        }
+
+        function build100AchievementsUI() {
+            let mapHtml = '';
+            let rewardsHtml = '';
+            milestones.forEach(m => {
+                mapHtml += `<div class="map-node" data-score="${m.score}" data-level="${m.level}">${m.icon}<span class="node-score">${m.score}⭐</span></div>`;
+                rewardsHtml += `<div class="reward-card-item" data-score="${m.score}" data-name="${m.name}">${m.icon}<span class="reward-tooltip">${m.score}⭐</span></div>`;
+            });
+            document.getElementById('mapPath').innerHTML = mapHtml;
+            document.getElementById('rewardsGrid').innerHTML = rewardsHtml;
+        }
+
+        let currentMode = null;
+        let score = 0;
+        let streak = 0;
+        let totalCorrect = 0;
+        let totalAttempts = 0;
+        let sessionProgress = 0;
+        let totalScoreAllTime = parseInt(localStorage.getItem('he_en_total_score') || '0');
+        let failedAttemptsCount = 0;
+
+        let queues = {
+            english_words: [],
+            english_picture_choice: [],
+            english_fill_blank: [],
+            build_sentence_en: []
+        };
+
+        function getUniqueItem(modeKey, sourceArray) {
+            if (!queues[modeKey] || queues[modeKey].length === 0) {
+                queues[modeKey] = [...sourceArray].sort(() => 0.5 - Math.random());
+            }
+            return queues[modeKey].pop();
+        }
+
+        const menuScreen = document.getElementById('menuScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const statsBar = document.getElementById('statsBar');
+        const progressContainer = document.getElementById('progressContainer');
+        const scoreVal = document.getElementById('scoreVal');
+        const streakVal = document.getElementById('streakVal');
+        const accuracyVal = document.getElementById('accuracyVal');
+        const progressBarFill = document.getElementById('progressBarFill');
+        const gameContent = document.getElementById('gameContent');
+
+        build100AchievementsUI();
+        updateRewardsDisplay();
+
+        function startGame(mode) {
+            currentMode = mode;
+            menuScreen.style.display = 'none';
+            gameScreen.style.display = 'block';
+            statsBar.style.display = 'flex';
+            progressContainer.style.display = 'block';
+            score = 0;
+            streak = 0;
+            totalCorrect = 0;
+            totalAttempts = 0;
+            sessionProgress = 0;
+            updateStats();
+            updateProgressUI();
+            nextQuestion();
+        }
+
+        function returnToMenu() {
+            gameScreen.style.display = 'none';
+            statsBar.style.display = 'none';
+            progressContainer.style.display = 'none';
+            menuScreen.style.display = 'block';
+            currentMode = null;
+            updateRewardsDisplay();
+        }
+
+        function updateStats() {
+            scoreVal.textContent = score;
+            streakVal.textContent = streak;
+            const accuracy = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 100;
+            accuracyVal.textContent = accuracy + '%';
+        }
+
+        function updateProgressUI() {
+            const percent = Math.min((sessionProgress / 10) * 100, 100);
+            progressBarFill.style.width = percent + '%';
+        }
+
+        function checkRewards(points) {
+            totalScoreAllTime += points;
+            localStorage.setItem('he_en_total_score', totalScoreAllTime);
+            
+            const cardItems = document.querySelectorAll('.reward-card-item');
+            cardItems.forEach(item => {
+                const targetScore = parseInt(item.getAttribute('data-score'));
+                const cardName = item.getAttribute('data-name');
+                if (totalScoreAllTime >= targetScore && !item.classList.contains('unlocked')) {
+                    item.classList.add('unlocked');
+                    showRewardPopup(`🗺️ כל הכבוד! נפתח הישג חדש: "${cardName}"!`);
+                }
+            });
+            updateRewardsDisplay();
+        }
+
+        function updateRewardsDisplay() {
+            const mapNodes = document.querySelectorAll('.map-node');
+            mapNodes.forEach(node => {
+                const targetScore = parseInt(node.getAttribute('data-score'));
+                if (totalScoreAllTime >= targetScore) {
+                    node.classList.add('active-node');
+                }
+            });
+
+            const cardItems = document.querySelectorAll('.reward-card-item');
+            cardItems.forEach(item => {
+                const targetScore = parseInt(item.getAttribute('data-score'));
+                if (totalScoreAllTime >= targetScore) {
+                    item.classList.add('unlocked');
+                }
+            });
+        }
+
+        function showRewardPopup(text) {
+            const popup = document.getElementById('rewardPopup');
+            document.getElementById('rewardText').textContent = text;
+            popup.classList.add('show');
+            setTimeout(() => popup.classList.remove('show'), 3500);
+        }
+
+        function speakText(text, lang) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function nextQuestion() {
+            failedAttemptsCount = 0;
+            if (currentMode === 'english_words') generateEnglishWordQuestion();
+            else if (currentMode === 'english_picture_choice') generateEnglishPictureChoiceQuestion();
+            else if (currentMode === 'english_fill_blank') generateEnglishFillBlankQuestion();
+            else if (currentMode === 'english_find_letter') generateFindLetterQuestion();
+            else if (currentMode === 'english_find_syllable') generateFindSyllableQuestion();
+            else if (currentMode === 'english_word_syllables') generateWordSyllablesQuestion();
+            else if (currentMode === 'match_pairs') generateMatchPairsQuestion();
+            else if (currentMode === 'build_sentence_en') generateBuildSentenceQuestion();
+        }
+
+        // 1. ОВЛАДЕНИЕ СЛОВАРНЫМ ЗАПАСОМ (500 слов)
+        function generateEnglishWordQuestion() {
+            const correctItem = getUniqueItem('english_words', englishWords);
+            let wrongItems = englishWords.filter(item => item.en !== correctItem.en);
+            wrongItems.sort(() => 0.5 - Math.random());
+            let options = [correctItem, ...wrongItems.slice(0, 3)];
+            options.sort(() => 0.5 - Math.random());
+
+            setTimeout(() => speakText(correctItem.en, 'en-US'), 300);
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">
+                        <span class="en-text" style="font-size: 2.2rem;">${correctItem.en}</span>
+                        <button class="speak-btn" onclick="speakText('${correctItem.en}', 'en-US')">🔊</button>
+                        <span style="font-size: 1rem; color: #a21caf;">מה הפירוש בעברית? (${correctItem.he})</span>
+                    </div>
+                </div>
+                <div class="options-grid">
+            `;
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card" onclick="handleCardAnswer(this, '${opt.en}', '${correctItem.en}')">
+                        <div style="font-size: 2rem;">${opt.emoji}</div>
+                        <div style="font-size: 1.1rem; color: #701a75; margin-top: 5px;">${opt.he}</div>
+                        <div class="en-text" style="font-size: 0.8rem; color: #a21caf;">${opt.en}</div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        // 2. ВЫБОР ПО КАРТИНКЕ
+        function generateEnglishPictureChoiceQuestion() {
+            const correctItem = getUniqueItem('english_picture_choice', englishWords);
+            let wrongItems = englishWords.filter(item => item.en !== correctItem.en);
+            wrongItems.sort(() => 0.5 - Math.random());
+            let options = [correctItem, ...wrongItems.slice(0, 3)];
+            options.sort(() => 0.5 - Math.random());
+
+            setTimeout(() => speakText(correctItem.en, 'en-US'), 300);
+
+            let html = `
+                <div class="question-box">
+                    <div style="font-size: 5rem; margin-bottom: 10px; cursor: pointer;" onclick="speakText('${correctItem.en}', 'en-US')">
+                        ${correctItem.emoji}
+                    </div>
+                    <div class="question-title">
+                        <span>מה זה באנגלית? (${correctItem.he})</span>
+                        <button class="speak-btn" onclick="speakText('${correctItem.en}', 'en-US')">🔊</button>
+                    </div>
+                </div>
+                <div class="options-grid">
+            `;
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card" onclick="handlePictureChoiceAnswer(this, '${opt.en}', '${correctItem.en}')">
+                        <span class="en-text" style="font-size: 1.4rem;">${opt.en}</span>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function handlePictureChoiceAnswer(element, selected, correct) {
+            speakText(selected, 'en-US');
+            totalAttempts++;
+            const parent = element.parentElement;
+
+            if (selected === correct) {
+                element.classList.add('correct');
+                score += 10;
+                streak += 1;
+                totalCorrect++;
+                sessionProgress++;
+                checkRewards(10);
+                updateStats();
+                updateProgressUI();
+                disableAllCards(parent);
+                setTimeout(() => nextQuestion(), 1200);
+            } else {
+                failedAttemptsCount++;
+                if (failedAttemptsCount >= 2) {
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+                    highlightCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1500);
+                } else {
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    streak = 0;
+                    updateStats();
+                }
+            }
+        }
+
+        // 3. ЗАПОЛНИ ПРОПУСК
+        function generateEnglishFillBlankQuestion() {
+            const targetWordObj = getUniqueItem('english_fill_blank_target', englishWords);
+            let wrongItems = englishWords.filter(item => item.en !== targetWordObj.en);
+            wrongItems.sort(() => 0.5 - Math.random());
+            
+            let options = [targetWordObj.en, wrongItems[0].en, wrongItems[1].en, wrongItems[2].en];
+            options.sort(() => 0.5 - Math.random());
+
+            const templates = [
+                { template: "I see a ___", he: "אני רואה..." },
+                { template: "This is a ___", he: "זה..." },
+                { template: "I want a ___", he: "אני רוצה..." },
+                { template: "Where is the ___?", he: "איפה ה...?" }
+            ];
+            const chosenTemplate = templates[Math.floor(Math.random() * templates.length)];
+            const translationText = `${chosenTemplate.he} ${targetWordObj.he}`;
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title" style="gap: 8px;">
+                        <span style="font-size: 1.1rem; color: #db2777; background: #fce7f3; padding: 4px 12px; border-radius: 20px;">🇮🇱 ${translationText}</span>
+                        <div class="en-text" style="font-size: 1.9rem; color: #701a75;">
+                            <span id="blankSentenceDisplay">${chosenTemplate.template}</span>
+                        </div>
+                        <button class="speak-btn" onclick="speakText('${chosenTemplate.template.replace('___', targetWordObj.en)}', 'en-US')">🔊</button>
+                    </div>
+                </div>
+                <div class="options-grid">
+            `;
+
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card" onclick="handleFillBlankAnswer(this, '${opt}', '${targetWordObj.en}', '${chosenTemplate.template}')">
+                        <span class="en-text" style="font-size: 1.3rem;">${opt}</span>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function handleFillBlankAnswer(element, selected, correct, template) {
+            speakText(selected, 'en-US');
+            totalAttempts++;
+            const parent = element.parentElement;
+
+            if (selected === correct) {
+                element.classList.add('correct');
+                const fullSentenceText = template.replace('___', correct);
+                document.getElementById('blankSentenceDisplay').textContent = fullSentenceText;
+                setTimeout(() => speakText(fullSentenceText, 'en-US'), 300);
+
+                score += 15;
+                streak += 1;
+                totalCorrect++;
+                sessionProgress++;
+                checkRewards(15);
+                updateStats();
+                updateProgressUI();
+                disableAllCards(parent);
+                setTimeout(() => nextQuestion(), 1600);
+            } else {
+                failedAttemptsCount++;
+                if (failedAttemptsCount >= 2) {
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+                    highlightCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1500);
+                } else {
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    streak = 0;
+                    updateStats();
+                }
+            }
+        }
+
+        // 4. НАЙДИ БУКВУ ПО СЛУХУ
+        function generateFindLetterQuestion() {
+            let shuffled = [...englishLetters].sort(() => 0.5 - Math.random());
+            let correctLetter = shuffled[0];
+            let options = [correctLetter, shuffled[1], shuffled[2], shuffled[3]].sort(() => 0.5 - Math.random());
+
+            setTimeout(() => speakText(correctLetter, 'en-US'), 300);
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">
+                        <span>מצא את האות בשמיעה:</span>
+                        <button class="speak-btn" onclick="speakText('${correctLetter}', 'en-US')">🔊</button>
+                    </div>
+                </div>
+                <div class="options-grid">
+            `;
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card en-text" style="font-size: 2.2rem;" onclick="handleCardAnswer(this, '${opt}', '${correctLetter}')">
+                        ${opt}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        // 5. НАЙДИ СЛОГ ПО СЛУХУ
+        function generateFindSyllableQuestion() {
+            let shuffled = [...englishSyllables].sort(() => 0.5 - Math.random());
+            let correctSyllable = shuffled[0];
+            let options = [correctSyllable, shuffled[1], shuffled[2], shuffled[3]].sort(() => 0.5 - Math.random());
+
+            setTimeout(() => speakText(correctSyllable, 'en-US'), 300);
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">
+                        <span>מצא את ההברה בשמיעה:</span>
+                        <button class="speak-btn" onclick="speakText('${correctSyllable}', 'en-US')">🔊</button>
+                    </div>
+                </div>
+                <div class="options-grid">
+            `;
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card en-text" style="font-size: 2rem;" onclick="handleCardAnswer(this, '${opt}', '${correctSyllable}')">
+                        ${opt}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        // 6. СОБЕРИ СЛОВО ИЗ СЛОГОВ
+        let currentSyllableWordObj = null;
+        let userConstructedSyllables = [];
+
+        function generateWordSyllablesQuestion() {
+            currentSyllableWordObj = englishSyllableWords[Math.floor(Math.random() * englishSyllableWords.length)];
+            userConstructedSyllables = [];
+            setTimeout(() => speakText(currentSyllableWordObj.word, 'en-US'), 300);
+
+            let shuffledSyllables = [...currentSyllableWordObj.syllables].sort(() => 0.5 - Math.random());
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title" style="gap: 6px;">
+                        <span style="font-size: 1rem; color: #db2777; background: #fce7f3; padding: 4px 12px; border-radius: 20px;">🇮🇱 פירוש: ${currentSyllableWordObj.he}</span>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <button class="speak-btn" onclick="speakText('${currentSyllableWordObj.word}', 'en-US')">🔊</button>
+                            <span style="font-size: 1.3rem;">הרכב מילה מהברות</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sentence-drop-zone en-text" id="dropZone" onclick="resetSyllableBuild()"></div>
+                <div class="word-pool">
+            `;
+            shuffledSyllables.forEach((syl, index) => {
+                html += `<div class="word-chip en-text" id="syl-chip-${index}" onclick="selectSyllableChip('${syl}', 'syl-chip-${index}')">${syl}</div>`;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function selectSyllableChip(syl, chipId) {
+            speakText(syl, 'en-US');
+            userConstructedSyllables.push({ syl, chipId });
+            document.getElementById(chipId).classList.add('used');
+            renderSyllableDropZone();
+
+            if (userConstructedSyllables.length === currentSyllableWordObj.syllables.length) {
+                totalAttempts++;
+                const userString = userConstructedSyllables.map(item => item.syl).join('');
+                const targetString = currentSyllableWordObj.syllables.join('');
+
+                if (userString.toLowerCase() === targetString.toLowerCase()) {
+                    setTimeout(() => speakText(currentSyllableWordObj.word, 'en-US'), 300);
+
+                    score += 15;
+                    streak += 1;
+                    totalCorrect++;
+                    sessionProgress++;
+                    checkRewards(15);
+                    updateStats();
+                    updateProgressUI();
+                    document.getElementById('dropZone').style.borderColor = 'var(--success)';
+                    document.getElementById('dropZone').style.background = '#d1fae5';
+                    setTimeout(() => generateWordSyllablesQuestion(), 1600);
+                } else {
+                    failedAttemptsCount++;
+                    if (failedAttemptsCount >= 2) {
+                        streak = 0;
+                        updateStats();
+                        document.getElementById('dropZone').style.borderColor = 'var(--error)';
+                        document.getElementById('dropZone').style.background = '#fee2e2';
+                        setTimeout(() => generateWordSyllablesQuestion(), 1200);
+                    } else {
+                        document.getElementById('dropZone').style.borderColor = 'var(--error)';
+                        document.getElementById('dropZone').style.background = '#fee2e2';
+                        setTimeout(() => resetSyllableBuild(), 800);
+                    }
+                }
+            }
+        }
+
+        function renderSyllableDropZone() {
+            const dropZone = document.getElementById('dropZone');
+            if (userConstructedSyllables.length === 0) {
+                dropZone.innerHTML = ``;
+                return;
+            }
+            let html = '';
+            userConstructedSyllables.forEach(item => {
+                html += `<div class="selected-word-chip en-text">${item.syl}</div>`;
+            });
+            dropZone.innerHTML = html;
+        }
+
+        function resetSyllableBuild() {
+            userConstructedSyllables.forEach(item => {
+                document.getElementById(item.chipId).classList.remove('used');
+            });
+            userConstructedWords = [];
+            userConstructedSyllables = [];
+            renderSyllableDropZone();
+            document.getElementById('dropZone').style.borderColor = '#c084fc';
+            document.getElementById('dropZone').style.background = '#faf5ff';
+        }
+
+        // 7. НАЙДИ ПАРУ
+        let selectedPairCard = null;
+        let matchedPairsCount = 0;
+
+        function generateMatchPairsQuestion() {
+            selectedPairCard = null;
+            matchedPairsCount = 0;
+            let shuffled = [...englishWords].sort(() => 0.5 - Math.random());
+            let currentPairs = shuffled.slice(0, 4);
+
+            let cardsData = [];
+            currentPairs.forEach(item => {
+                cardsData.push({ text: item.en, type: 'en', pairId: item.en, isEn: true });
+                cardsData.push({ text: item.he, type: 'he', pairId: item.en, emoji: item.emoji });
+            });
+            cardsData.sort(() => 0.5 - Math.random());
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">🧩 חבר בין מילה לתרגום</div>
+                </div>
+                <div class="match-grid" id="matchGrid">
+            `;
+            cardsData.forEach((card) => {
+                if (card.isEn) {
+                    html += `
+                        <div class="match-card en-text" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
+                            <span onclick="event.stopPropagation(); speakText('${card.text}', 'en-US')" style="color:#c084fc; cursor:pointer;">🔊</span> ${card.text}
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="match-card" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
+                            <span>${card.emoji} ${card.text}</span>
+                        </div>
+                    `;
+                }
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function handleMatchClick(element, pairId, type) {
+            if (element.classList.contains('matched') || element.classList.contains('selected')) return;
+
+            if (!selectedPairCard) {
+                selectedPairCard = { element, pairId, type };
+                element.classList.add('selected');
+            } else {
+                totalAttempts++;
+                if (selectedPairCard.type !== type && selectedPairCard.pairId === pairId) {
+                    selectedPairCard.element.classList.remove('selected');
+                    selectedPairCard.element.classList.add('matched');
+                    element.classList.add('matched');
+                    selectedPairCard = null;
+                    matchedPairsCount++;
+                    score += 5;
+                    updateStats();
+
+                    if (matchedPairsCount === 4) {
+                        sessionProgress++;
+                        updateProgressUI();
+                        checkRewards(20);
+                        setTimeout(() => generateMatchPairsQuestion(), 800);
+                    }
+                } else {
+                    selectedPairCard.element.classList.add('incorrect');
+                    element.classList.add('incorrect');
+                    let prevSelected = selectedPairCard.element;
+                    selectedPairCard = null;
+                    streak = 0;
+                    updateStats();
+                    setTimeout(() => {
+                        prevSelected.classList.remove('incorrect', 'selected');
+                        element.classList.remove('incorrect');
+                    }, 500);
+                }
+            }
+        }
+
+        // 8. СБОРИ ПРЕДЛОЖЕНИЕ
+        let currentSentenceObj = null;
+        let userConstructedWords = [];
+
+        function generateBuildSentenceQuestion() {
+            currentSentenceObj = getUniqueItem('build_sentence_en', englishSentences);
+            userConstructedWords = [];
+            setTimeout(() => speakText(currentSentenceObj.text, 'en-US'), 300);
+
+            const originalWords = currentSentenceObj.text.split(' ');
+            let shuffledWords = [...originalWords].sort(() => 0.5 - Math.random());
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title" style="gap: 6px;">
+                        <span style="font-size: 1rem; color: #db2777; background: #fce7f3; padding: 4px 12px; border-radius: 20px;">🇮🇱 ${currentSentenceObj.he}</span>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <button class="speak-btn" onclick="speakText('${currentSentenceObj.text}', 'en-US')">🔊</button>
+                            <span style="font-size: 1.4rem;">סדר את המילים במשפט</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sentence-drop-zone en-text" id="dropZone" onclick="resetSentenceBuild()"></div>
+                <div class="word-pool">
+            `;
+            shuffledWords.forEach((word, index) => {
+                html += `<div class="word-chip en-text" id="chip-${index}" onclick="selectWordChip('${word}', 'chip-${index}')">${word}</div>`;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function selectWordChip(word, chipId) {
+            speakText(word, 'en-US');
+            userConstructedWords.push({ word, chipId });
+            document.getElementById(chipId).classList.add('used');
+            renderDropZone();
+
+            const originalWords = currentSentenceObj.text.split(' ');
+            if (userConstructedWords.length === originalWords.length) {
+                totalAttempts++;
+                const userString = userConstructedWords.map(item => item.word).join(' ');
+
+                if (userString === currentSentenceObj.text) {
+                    setTimeout(() => speakText(currentSentenceObj.text, 'en-US'), 300);
+
+                    score += 15;
+                    streak += 1;
+                    totalCorrect++;
+                    sessionProgress++;
+                    checkRewards(15);
+                    updateStats();
+                    updateProgressUI();
+                    document.getElementById('dropZone').style.borderColor = 'var(--success)';
+                    document.getElementById('dropZone').style.background = '#d1fae5';
+                    setTimeout(() => generateBuildSentenceQuestion(), 1600);
+                } else {
+                    failedAttemptsCount++;
+                    if (failedAttemptsCount >= 2) {
+                        streak = 0;
+                        updateStats();
+                        document.getElementById('dropZone').style.borderColor = 'var(--error)';
+                        document.getElementById('dropZone').style.background = '#fee2e2';
+                        setTimeout(() => generateBuildSentenceQuestion(), 1200);
+                    } else {
+                        document.getElementById('dropZone').style.borderColor = 'var(--error)';
+                        document.getElementById('dropZone').style.background = '#fee2e2';
+                        setTimeout(() => resetSentenceBuild(), 800);
+                    }
+                }
+            }
+        }
+
+        function renderDropZone() {
+            const dropZone = document.getElementById('dropZone');
+            if (userConstructedWords.length === 0) {
+                dropZone.innerHTML = ``;
+                return;
+            }
+            let html = '';
+            userConstructedWords.forEach(item => {
+                html += `<div class="selected-word-chip en-text">${item.word}</div>`;
+            });
+            dropZone.innerHTML = html;
+        }
+
+        function resetSentenceBuild() {
+            userConstructedWords.forEach(item => {
+                document.getElementById(item.chipId).classList.remove('used');
+            });
+            userConstructedWords = [];
+            renderDropZone();
+            document.getElementById('dropZone').style.borderColor = '#c084fc';
+            document.getElementById('dropZone').style.background = '#faf5ff';
+        }
+
+        function handleCardAnswer(element, selected, correct) {
+            totalAttempts++;
+            const parent = element.parentElement;
+
+            if (selected === correct) {
+                element.classList.add('correct');
+                score += 10;
+                streak += 1;
+                totalCorrect++;
+                sessionProgress++;
+                checkRewards(10);
+                updateStats();
+                updateProgressUI();
+                disableAllCards(parent);
+                setTimeout(() => nextQuestion(), 1200);
+            } else {
+                failedAttemptsCount++;
+                if (failedAttemptsCount >= 2) {
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+                    highlightCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1500);
+                } else {
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    streak = 0;
+                    updateStats();
+                }
+            }
+        }
+
+        function disableAllCards(parent) {
+            for (let card of parent.children) {
+                card.style.pointerEvents = 'none';
+            }
+        }
+
+        function highlightCorrectCard(parent, correct) {
+            for (let card of parent.children) {
+                if (card.getAttribute('onclick')?.includes(correct) || card.textContent.trim().includes(String(correct))) {
+                    card.classList.add('correct');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
